@@ -61,6 +61,33 @@ services:
     volumes: 
       - ./configuration/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
 
+  concentratord_slot2:
+    #image: concentratord:0.1
+    # or comment out image: and build it yourself
+    build:
+      context: ./chirpstack_concentratord_sx1302_docker/
+      dockerfile: ./Dockerfile
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
+    volumes:
+      - ./configuration/concentratord/concentratord_RAK7391_slot2.toml:/app/concentratord.toml:ro
+
+  mqtt_forwarder_local:
+    #image: mqtt_forwarder:0.1
+    # or comment out image: and build it yourself
+    build:
+      context: ./chirpstack_mqtt_forwarder_docker/
+      dockerfile: ./Dockerfile
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
+    volumes:
+      - ./configuration/chirpstack-mqtt-forwarder/chirpstack-mqtt-forwarder-local.toml:/app/chirpstack-mqtt-forwarder.toml:ro
+    depends_on:
+      - chirpstack
+
+
 volumes:
   postgresqldata:
   redisdata:
