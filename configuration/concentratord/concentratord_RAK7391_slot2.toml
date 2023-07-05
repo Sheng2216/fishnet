@@ -11,7 +11,7 @@
   #   * WARN
   #   * ERROR
   #   * OFF
-  log_level="DEBUG"
+  log_level="INFO"
 
   # Log to syslog.
   #

@@ -45,7 +45,8 @@
   json=false
 
   # MQTT server (e.g. scheme://host:port where scheme is tcp, ssl or ws)
-  server="tcp://127.0.0.1:1883"
+  # server="tcp://127.0.0.1:1883"
+  server="tcp://mosquitto:1883"
 
   # Connect with the given username (optional)
   username=""
@@ -110,10 +111,10 @@
     forward_crc_ok=true
 
     # Forward CRC invalid.
-    forward_crc_invalid=false
+    forward_crc_invalid=true
 
     # Forward CRC missing.
-    forward_crc_missing=false
+    forward_crc_missing=true
 
     # DevAddr prefix filters.
     #

@@ -8,7 +8,6 @@ LABEL org.label-schema.name="Chirpstack mqtt forwarder docker"
 LABEL org.label-schema.description="A Semtech UDP or ChirpStack Concentratord to MQTT forwarder(arm64)"
 LABEL org.label-schema.vcs-type="Git"
 LABEL org.label-schema.vcs-url="https://github.com/chirpstack/chirpstack-mqtt-forwarder"
-LABEL org.label-schema.license="MIT License (MIT)"
 
 WORKDIR /app
 

@@ -19,15 +19,15 @@ services:
     ports:
       - 8080:8080
 
-  chirpstack-gateway-bridge-eu868:
-    image: chirpstack/chirpstack-gateway-bridge:4
-    restart: unless-stopped
-    ports:
-      - 1700:1700/udp
-    volumes:
-      - ./configuration/chirpstack-gateway-bridge:/etc/chirpstack-gateway-bridge
-    depends_on: 
-      - mosquitto
+  # chirpstack-gateway-bridge-eu868:
+  #   image: chirpstack/chirpstack-gateway-bridge:4
+  #   restart: unless-stopped
+  #   ports:
+  #     - 1700:1700/udp
+  #   volumes:
+  #     - ./configuration/chirpstack-gateway-bridge:/etc/chirpstack-gateway-bridge
+  #   depends_on: 
+  #     - mosquitto
 
   chirpstack-rest-api:
     image: chirpstack/chirpstack-rest-api:4
@@ -69,8 +69,9 @@ services:
       dockerfile: ./Dockerfile
     restart: unless-stopped
     privileged: true
-    network_mode: host
     volumes:
+      # Mount the shared volume for the socket files
+      - concentratord_sockets:/tmp/
       - ./configuration/concentratord/concentratord_RAK7391_slot2.toml:/app/concentratord.toml:ro
 
   mqtt_forwarder_local:
@@ -80,14 +81,18 @@ services:
       context: ./chirpstack_mqtt_forwarder_docker/
       dockerfile: ./Dockerfile
     restart: unless-stopped
-    privileged: true
-    network_mode: host
+    # privileged: true
+    ports:
+      - "1700:1700/udp"
     volumes:
+    # Mount the shared volume for the socket files
+      - concentratord_sockets:/tmp/
       - ./configuration/chirpstack-mqtt-forwarder/chirpstack-mqtt-forwarder-local.toml:/app/chirpstack-mqtt-forwarder.toml:ro
     depends_on:
       - chirpstack
-
+      - concentratord_slot2
 
 volumes:
   postgresqldata:
   redisdata:
+  concentratord_sockets:
