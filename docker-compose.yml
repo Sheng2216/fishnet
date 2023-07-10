@@ -109,7 +109,8 @@ services:
     privileged: true
     volumes:
       # Mount the shared volume for the socket files
-      - concentratord_sockets_slot2:/tmp/
+      # - concentratord_sockets_slot2:/tmp/
+      - /tmp/:/tmp/
       - ./configuration/concentratord/concentratord_RAK7391_slot2.toml:/app/concentratord.toml:ro
     networks:
       - slot_2_local
@@ -126,7 +127,8 @@ services:
     #   - "1700:1700/udp"
     volumes:
     # Mount the shared volume for the socket files
-      - concentratord_sockets_slot2:/tmp/
+      # - concentratord_sockets_slot2:/tmp/
+      - /tmp/:/tmp/
       - ./configuration/chirpstack-mqtt-forwarder/chirpstack-mqtt-forwarder-local.toml:/app/chirpstack-mqtt-forwarder.toml:ro
     depends_on:
       - chirpstack
@@ -138,7 +140,7 @@ volumes:
   postgresqldata:
   redisdata:
   concentratord_sockets_slot1:
-  concentratord_sockets_slot2:
+  # concentratord_sockets_slot2:
 
 networks:
   slot_1_cloud:

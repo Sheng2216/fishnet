@@ -1,4 +1,5 @@
-FROM balenalib/aarch64-debian:bullseye-run as runner
+#FROM balenalib/aarch64-debian:bullseye-run as runner
+FROM alpine:3.14
 
 # Image metadata
 LABEL maintainer="RAKwireless"
